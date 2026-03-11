@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="controle.gastos.Api/controle.gastos.Api.csproj" Id="dfe5c08b-8a23-4b36-a9db-3bf626b5cb3a" />
+  <Project Path="controle.gastos.App/controle.gastos.App.csproj" Id="06d6e89e-66c3-442a-80f4-106e6d3687c5" />
+  <Project Path="controle.gastos.Domain/controle.gastos.Domain.csproj" Id="acd0cd19-af03-494b-b674-226e96658fdb" />
+  <Project Path="controle.gastos.Infra/controle.gastos.Infra.csproj" Id="2d42d318-9d63-43bc-a3b0-a6871ab10ed6" />
+</Solution>
