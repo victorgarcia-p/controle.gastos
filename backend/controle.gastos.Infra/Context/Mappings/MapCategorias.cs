@@ -10,7 +10,7 @@ public class MapCategorias : IEntityTypeConfiguration<Categorias>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Descricao).IsRequired().HasMaxLength(400);
-        builder.Property(x => x.Tipo).IsRequired();
+        builder.Property(x => x.Tipo).IsRequired().HasConversion<string>();
 
         builder
             .HasMany(x => x.Transacoes)

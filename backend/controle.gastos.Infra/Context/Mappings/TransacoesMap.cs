@@ -13,8 +13,8 @@ public class MapTransacoes: IEntityTypeConfiguration<Transacoes>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Descricao).IsRequired().HasMaxLength(400);
-        builder.Property(x => x.Valor).IsRequired();
-        builder.Property(x => x.Tipo).IsRequired();
+        builder.Property(x => x.Valor).IsRequired().HasPrecision(18, 2); ;
+        builder.Property(x => x.Tipo).IsRequired().HasConversion<string>();
         builder.Property(x => x.Data).IsRequired();
         builder.Property(x => x.PessoaId).IsRequired();
         builder.Property(x => x.CategoriaId).IsRequired();
