@@ -10,7 +10,7 @@ using controle.gastos.Infra.Context;
 
 namespace controle.gastos.Infra.Migrations
 {
-    [DbContext(typeof(controle.gastos.Infra.Context.Context))]
+    [DbContext(typeof(ContextDb))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

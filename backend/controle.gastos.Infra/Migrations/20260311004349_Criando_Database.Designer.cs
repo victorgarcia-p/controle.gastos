@@ -11,7 +11,7 @@ using controle.gastos.Infra.Context;
 
 namespace controle.gastos.Infra.Migrations
 {
-    [DbContext(typeof(controle.gastos.Infra.Context.Context))]
+    [DbContext(typeof(ContextDb))]
     [Migration("20260311004349_Criando_Database")]
     partial class Criando_Database
     {
