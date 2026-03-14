@@ -2,6 +2,7 @@
 using controle.gastos.App.Interfaces.IRepositories;
 using controle.gastos.App.Interfaces.IServices;
 using controle.gastos.Domain.Entities;
+using controle.gastos.Domain.Enums;
 
 namespace controle.gastos.App.Services;
 
@@ -26,7 +27,7 @@ public class ServiceCategorias(ICategoriasRepository categoriasRepository) : ISe
         var categoria = new Categorias
         {
             Descricao = categoriaInc.Descricao,
-            Tipo = categoriaInc.Tipo
+            Tipo = categoriaInc.Tipo.GetTipo()
         };
 
         return await _categoriasRepository.Post(categoria);
@@ -34,13 +35,16 @@ public class ServiceCategorias(ICategoriasRepository categoriasRepository) : ISe
 
     public async Task<Categorias> Put(AlteraCategoriaDTO categoriaAlt)
     {
+        if (!Enum.TryParse<Tipo>(categoriaAlt.Tipo, true, out var tipo))
+            throw new Exception("Tipo de categoria inválido");
+
         var categoria = await _categoriasRepository.Get(categoriaAlt.Id);
 
         if (!string.IsNullOrWhiteSpace(categoriaAlt.Descricao))
             categoria.Descricao = categoriaAlt.Descricao;
 
         if (categoriaAlt.Tipo is not null)
-            categoria.Tipo = categoriaAlt.Tipo.Value;
+            categoria.Tipo = categoriaAlt.Tipo.GetTipo();
 
         await _categoriasRepository.SaveChanges();
 
@@ -51,12 +55,15 @@ public class ServiceCategorias(ICategoriasRepository categoriasRepository) : ISe
     {
         var categoria = await _categoriasRepository.Get(id);
 
-        if(categoria is not null && categoria.Transacoes.Any())
+        if (categoria is null)
+            throw new Exception("Não foi possivel localizar a categoria.");
+
+        if (categoria is not null && categoria.Transacoes.Any())
         {
             throw new Exception($"Não é possivel remover a categoria '{categoria.Descricao}', pois existem transações utilizando esta categoria. Caso deseje, favor inativar a transação.");
         }
 
-        await _categoriasRepository.Delete(categoria);
+        await _categoriasRepository.Delete(categoria!);
         await _categoriasRepository.SaveChanges();
     }
 }

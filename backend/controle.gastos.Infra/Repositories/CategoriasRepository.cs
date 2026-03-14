@@ -14,6 +14,7 @@ public class CategoriasRepository(ContextDb bd) : ICategoriasRepository
     {
         var query = _bd.Categorias.AsQueryable();
 
+        /*Aplica Filtros para facilitar pesquisa no Front*/
         query = filtro.Id > 0 ? query.Where(x => x.Id == filtro.Id) : query;
         query = !string.IsNullOrEmpty(filtro.Nome) ? query.Where(x => x.Descricao.StartsWith(filtro.Nome)) : query;
 
@@ -24,7 +25,7 @@ public class CategoriasRepository(ContextDb bd) : ICategoriasRepository
 
     public async Task<Categorias> Get(int id)
     {
-        var pessoa = await _bd.Categorias.Include(t => t.Transacoes).FirstOrDefaultAsync(x => x.Id == id);
+        var pessoa = await _bd.Categorias.FirstOrDefaultAsync(x => x.Id == id);
 
         if (pessoa is null)
             throw new ArgumentException("Categoria não encontrada");

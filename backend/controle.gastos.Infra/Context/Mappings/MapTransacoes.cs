@@ -20,12 +20,6 @@ public class MapTransacoes: IEntityTypeConfiguration<Transacoes>
         builder.Property(x => x.CategoriaId).IsRequired();
 
         builder
-            .HasOne(x => x.Pessoa)
-            .WithMany(x => x.Transacoes)
-            .HasForeignKey(x => x.PessoaId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder
             .HasOne(x => x.Categoria)
             .WithMany(x => x.Transacoes)
             .HasForeignKey(x => x.CategoriaId)

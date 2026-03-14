@@ -11,41 +11,76 @@ public class PessoasController(IServicePessoas servicePessoas) : ControllerBase
     private readonly IServicePessoas _servicePessoas = servicePessoas;
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] FiltroPessoasDTO filtro) //Caso queira retornar todas as pessoas, basta não adicionar nenhum filtro a query
+    public async Task<IActionResult> Get([FromQuery] FiltroPessoasDTO filtro)
     {
-        var pessoas = await _servicePessoas.GetAll(filtro);
+        try
+        {
+            var pessoas = await _servicePessoas.GetAll(filtro);
 
-        if (pessoas.Count == 0)
-            return NotFound();
+            if (pessoas.Count == 0)
+                return NotFound();
 
-        return Ok(pessoas);
+            return Ok(pessoas);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(int id)
     {
-        var pessoas = await _servicePessoas.Get(id);
-        return Ok(pessoas);
+        try
+        {
+            var pessoas = await _servicePessoas.Get(id);
+            return Ok(pessoas);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Post(NovaPessoaDTO pessoaInc)
     {
-        var pessoas = await _servicePessoas.Post(pessoaInc);
-        return Ok(pessoas);
+        try
+        {
+            var pessoas = await _servicePessoas.Post(pessoaInc);
+            return Ok(pessoas);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut]
     public async Task<IActionResult> Put(AlteraPessoaDTO pessoaAlt)
     {
-        var pessoas = await _servicePessoas.Put(pessoaAlt);
-        return Ok(pessoas);
+        try
+        {
+            var pessoas = await _servicePessoas.Put(pessoaAlt);
+            return Ok(pessoas);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        await _servicePessoas.Delete(id);
-        return Ok();
+        try
+        {
+            await _servicePessoas.Delete(id);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

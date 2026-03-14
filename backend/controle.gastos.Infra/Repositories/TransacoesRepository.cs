@@ -12,8 +12,10 @@ public class TransacoesRepository(ContextDb bd) : ITransacoesRepository
 
     public async Task<List<Transacoes>> GetAll(FiltroTransacoesDTO filtro)
     {
+        /*Inclui no Get Pessoas e Categorias, para facilitar a tratativa de Dashboards no Front*/
         var query = _bd.Transacoes.Include(x => x.Pessoa).Include(x => x.Categoria).AsQueryable();
 
+        /*No trecho abaixo, aplico filtros para poder retornar no Front de forma mais facil As transações.*/
         query = filtro.Id > 0 ? query.Where(x => x.Id == filtro.Id) : query;
         query = !string.IsNullOrEmpty(filtro.Descricao) ? query.Where(x => x.Descricao.StartsWith(filtro.Descricao)) : query;
         query = filtro.ValorInicial.HasValue ? query.Where(x => x.Valor >= filtro.ValorInicial) : query;
@@ -34,6 +36,7 @@ public class TransacoesRepository(ContextDb bd) : ITransacoesRepository
 
     public async Task<Transacoes> Get(int id)
     {
+        /*Inclui no Get Pessoas e Categorias, para facilitar a tratativa de Dashboards no Front*/
         var pessoa = await _bd.Transacoes.Include(x => x.Pessoa).Include(x => x.Categoria).FirstOrDefaultAsync(x => x.Id == id);
 
         if (pessoa is null)

@@ -1,4 +1,6 @@
-﻿namespace controle.gastos.App.DTOs.Pessoas;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace controle.gastos.App.DTOs.Pessoas;
 
 public class NovaPessoaDTO
 {

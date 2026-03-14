@@ -24,7 +24,7 @@ public class PessoasRepository(ContextDb bd) : IPessoasRepository
 
     public async Task<Pessoas> Get(int id)
     {
-        var pessoa = await _bd.Pessoas.FirstOrDefaultAsync(x => x.Id == id);
+        var pessoa = await _bd.Pessoas.Include(x => x.Transacoes).FirstOrDefaultAsync(x => x.Id == id);
 
         if (pessoa is null)
             throw new ArgumentException("Nenhuma pessoa encontrada");

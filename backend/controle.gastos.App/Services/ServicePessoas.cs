@@ -51,6 +51,10 @@ public class ServicePessoas(IPessoasRepository pessoasRepository) : IServicePess
     public async Task Delete(int id)
     {
         var pessoa = await _pessoasRepository.Get(id);
+
+        if (pessoa is null)
+            throw new Exception("Não foi possivel localizar esta pessoa no sistema.");
+
         await _pessoasRepository.Delete(pessoa);
         await _pessoasRepository.SaveChanges();
     }
