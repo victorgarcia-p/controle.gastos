@@ -16,10 +16,6 @@ public class CategoriasController(IServiceCategorias serviceCategorias) : Contro
         try
         {
             var pessoas = await _serviceCategorias.GetAll(filtro);
-
-            if (pessoas.Count == 0)
-                return NotFound();
-
             return Ok(pessoas);
         }
         catch (Exception ex)

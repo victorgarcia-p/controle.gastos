@@ -16,10 +16,6 @@ public class PessoasController(IServicePessoas servicePessoas) : ControllerBase
         try
         {
             var pessoas = await _servicePessoas.GetAll(filtro);
-
-            if (pessoas.Count == 0)
-                return NotFound();
-
             return Ok(pessoas);
         }
         catch (Exception ex)

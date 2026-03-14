@@ -1,0 +1,80 @@
+/* ─── Categorias — estilos específicos ───────────────────────────────────────── */
+
+/* ── Contadores por tipo ── */
+.cat-counters {
+  display: flex;
+  gap: 12px;
+}
+
+.cat-counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 12px 18px;
+  min-width: 110px;
+  transition: border-color 0.2s ease;
+}
+
+.cat-counter:hover { border-color: rgba(255, 255, 255, 0.12); }
+
+.cat-counter__num {
+  font-size: 22px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+  line-height: 1;
+}
+
+.cat-counter__label {
+  font-size: 11px;
+  color: rgba(240, 242, 245, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.cat-counter--red   .cat-counter__num { color: #f87171; }
+.cat-counter--green .cat-counter__num { color: #63d296; }
+.cat-counter--blue  .cat-counter__num { color: #60a5fa; }
+
+/* ── Ícone da categoria ── */
+.cat-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(240, 242, 245, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Badge de tipo ── */
+.cat-tipo {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.cat-tipo--red   { background: rgba(248, 113, 113, 0.12); color: #f87171; }
+.cat-tipo--green { background: rgba(99, 210, 150, 0.12);  color: #63d296; }
+.cat-tipo--blue  { background: rgba(96, 165, 250, 0.12);  color: #60a5fa; }
+
+/* ── Toggle "Ambas" no drawer ── */
+.drawer__toggle-btn.active-blue {
+  background: rgba(96, 165, 250, 0.12);
+  border-color: rgba(96, 165, 250, 0.3);
+  color: #60a5fa;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .cat-counters { flex-direction: column; }
+}

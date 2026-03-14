@@ -17,10 +17,6 @@ public class TransacoesController(IServiceTransacoes serviceTransacoes) : Contro
         try
         {
             var transacoes = await _serviceTransacoes.GetAll(filtro);
-
-            if (transacoes.Count == 0)
-                return NotFound();
-
             return Ok(transacoes);
         }
         catch (Exception ex)

@@ -16,21 +16,22 @@ public class CategoriasRepository(ContextDb bd) : ICategoriasRepository
 
         /*Aplica Filtros para facilitar pesquisa no Front*/
         query = filtro.Id > 0 ? query.Where(x => x.Id == filtro.Id) : query;
-        query = !string.IsNullOrEmpty(filtro.Nome) ? query.Where(x => x.Descricao.StartsWith(filtro.Nome)) : query;
+        query = !string.IsNullOrEmpty(filtro.Descricao) ? query.Where(x => x.Descricao.StartsWith(filtro.Descricao)) : query;
+        query = !string.IsNullOrEmpty(filtro.Tipo) ? query.Where(x => x.Tipo.ToString().StartsWith(filtro.Tipo)) : query;
 
-        var pessoas = await query.OrderByDescending(x => x.Id).ToListAsync();
+        var categorias = await query.OrderByDescending(x => x.Id).ToListAsync();
 
-        return pessoas;
+        return categorias;
     }
 
     public async Task<Categorias> Get(int id)
     {
-        var pessoa = await _bd.Categorias.FirstOrDefaultAsync(x => x.Id == id);
+        var categoria = await _bd.Categorias.FirstOrDefaultAsync(x => x.Id == id);
 
-        if (pessoa is null)
+        if (categoria is null)
             throw new ArgumentException("Categoria não encontrada");
 
-        return pessoa;
+        return categoria;
     }
 
     public async Task<Categorias> Post(Categorias categoria)
