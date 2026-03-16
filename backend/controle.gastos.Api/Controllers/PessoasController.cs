@@ -29,8 +29,8 @@ public class PessoasController(IServicePessoas servicePessoas) : ControllerBase
     {
         try
         {
-            var pessoas = await _servicePessoas.Get(id);
-            return Ok(pessoas);
+            var pessoa = await _servicePessoas.Get(id);
+            return Ok(pessoa);
         }
         catch (Exception ex)
         {
@@ -43,8 +43,8 @@ public class PessoasController(IServicePessoas servicePessoas) : ControllerBase
     {
         try
         {
-            var pessoas = await _servicePessoas.Post(pessoaInc);
-            return Ok(pessoas);
+            var pessoa = await _servicePessoas.Post(pessoaInc);
+            return Ok(pessoa);
         }
         catch (Exception ex)
         {
@@ -57,8 +57,8 @@ public class PessoasController(IServicePessoas servicePessoas) : ControllerBase
     {
         try
         {
-            var pessoas = await _servicePessoas.Put(pessoaAlt);
-            return Ok(pessoas);
+            var pessoa = await _servicePessoas.Put(pessoaAlt);
+            return Ok(pessoa);
         }
         catch (Exception ex)
         {

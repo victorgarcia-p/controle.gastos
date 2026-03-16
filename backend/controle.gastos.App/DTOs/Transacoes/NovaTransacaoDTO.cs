@@ -1,5 +1,4 @@
-﻿using controle.gastos.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace controle.gastos.App.DTOs.Transacoes;
 

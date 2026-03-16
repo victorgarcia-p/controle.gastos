@@ -14,14 +14,14 @@ public class ServiceTransacoes(ITransacoesRepository transacoesRepository, IPess
 
     public async Task<List<Transacoes>> GetAll(FiltroTransacoesDTO filtro)
     {
-        var categorias = await _transacoesRepository.GetAll(filtro);
-        return categorias;
+        var transacoes = await _transacoesRepository.GetAll(filtro);
+        return transacoes;
     }
 
     public async Task<Transacoes> Get(int id)
     {
-        var pessoa = await _transacoesRepository.Get(id);
-        return pessoa;
+        var transacao = await _transacoesRepository.Get(id);
+        return transacao;
     }
 
     public async Task<Transacoes> Post(NovaTransacaoDTO transacaoInc)

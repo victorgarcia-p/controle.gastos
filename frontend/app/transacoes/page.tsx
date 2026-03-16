@@ -24,9 +24,9 @@ const fmtData = (iso: string) =>
   iso ? new Date(iso).toLocaleDateString("pt-BR") : "—";
 
 function getPeriodoAtual() {
-  const now    = new Date();
-  const ano    = now.getFullYear();
-  const mes    = String(now.getMonth() + 1).padStart(2, "0");
+  const now = new Date();
+  const ano = now.getFullYear();
+  const mes = String(now.getMonth() + 1).padStart(2, "0");
   const ultimo = new Date(ano, now.getMonth() + 1, 0).getDate();
   return { DataInicio: `${ano}-${mes}-01`, DataFim: `${ano}-${mes}-${ultimo}` };
 }
@@ -64,16 +64,16 @@ function ConfirmModal({ descricao, onConfirm, onCancel }: {
 // ─── Página ───────────────────────────────────────────────────────────────────
 
 export default function TransacoesPage() {
-  const [transacoes, setTransacoes]   = useState<Transacao[]>([]);
-  const [pessoas, setPessoas]         = useState<Pessoa[]>([]);
-  const [categorias, setCategorias]   = useState<Categoria[]>([]);
-  const [loading, setLoading]         = useState(true);
-  const [filtroOpen, setFiltroOpen]   = useState(false);
-  const [drawerOpen, setDrawerOpen]   = useState(false);
-  const [editando, setEditando]       = useState<Transacao | null>(null);
-  const [excluindo, setExcluindo]     = useState<Transacao | null>(null);
-  const [saving, setSaving]           = useState(false);
-  const [erro, setErro]               = useState("");
+  const [transacoes, setTransacoes] = useState<Transacao[]>([]);
+  const [pessoas, setPessoas] = useState<Pessoa[]>([]);
+  const [categorias, setCategorias] = useState<Categoria[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filtroOpen, setFiltroOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [editando, setEditando] = useState<Transacao | null>(null);
+  const [excluindo, setExcluindo] = useState<Transacao | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [erro, setErro] = useState("");
 
   // ── Formulário transação ──
   const emptyForm = {
@@ -85,10 +85,10 @@ export default function TransacoesPage() {
   const setField = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }));
 
   // ── Nova categoria inline ──
-  const [catOpen, setCatOpen]       = useState(false);
-  const [catForm, setCatForm]       = useState({ descricao: "", tipo: "0" });
-  const [catSaving, setCatSaving]   = useState(false);
-  const [catErro, setCatErro]       = useState("");
+  const [catOpen, setCatOpen] = useState(false);
+  const [catForm, setCatForm] = useState({ descricao: "", tipo: "0" });
+  const [catSaving, setCatSaving] = useState(false);
+  const [catErro, setCatErro] = useState("");
 
   // ── Filtros ──
   const periodo = getPeriodoAtual();
@@ -98,7 +98,7 @@ export default function TransacoesPage() {
     PessoasArr: [],
     CategoriasArr: [],
   });
-  const [filtro, setFiltro]         = useState<FiltroTransacao>({ DataInicio: periodo.DataInicio, DataFim: periodo.DataFim });
+  const [filtro, setFiltro] = useState<FiltroTransacao>({ DataInicio: periodo.DataInicio, DataFim: periodo.DataFim });
   const [filtroTemp, setFiltroTemp] = useState<FiltroTemp>(emptyFiltroTemp());
 
   // ── Carregar ──
@@ -126,7 +126,7 @@ export default function TransacoesPage() {
   function aplicarFiltro() {
     const filtroFinal: FiltroTransacao = {
       ...filtroTemp,
-      Pessoas:    filtroTemp.PessoasArr?.length    ? filtroTemp.PessoasArr.join(",")    : undefined,
+      Pessoas: filtroTemp.PessoasArr?.length ? filtroTemp.PessoasArr.join(",") : undefined,
       Categorias: filtroTemp.CategoriasArr?.length ? filtroTemp.CategoriasArr.join(",") : undefined,
     };
     setFiltro(filtroFinal);
@@ -155,11 +155,11 @@ export default function TransacoesPage() {
   function abrirEditar(t: Transacao) {
     setEditando(t);
     setForm({
-      Descricao:   t.descricao,
-      Valor:       String(t.valor),
-      Tipo:        String(t.tipo),
-      Data:        t.data.slice(0, 10),
-      PessoaId:    String(t.pessoaId),
+      Descricao: t.descricao,
+      Valor: String(t.valor),
+      Tipo: String(t.tipo),
+      Data: t.data.slice(0, 10),
+      PessoaId: String(t.pessoaId),
       CategoriaId: String(t.categoriaId),
     });
     setErro("");
@@ -177,23 +177,27 @@ export default function TransacoesPage() {
     setSaving(true);
     setErro("");
     try {
+      const tipoLabel: Record<string, string> = {
+        "0": "Despesa",
+        "1": "Receita",
+      };
       if (editando) {
-        await updateTransacao({
-          Id:          editando.id,
-          Descricao:   form.Descricao,
-          Valor:       parseFloat(form.Valor),
-          Tipo:        form.Tipo,
-          Data:        new Date(form.Data).toISOString(),
-          PessoaId:    parseInt(form.PessoaId),
+        var result = await updateTransacao({
+          Id: editando.id,
+          Descricao: form.Descricao,
+          Valor: parseFloat(form.Valor),
+          Tipo: tipoLabel[form.Tipo],   // 👈 "0" → "Despesa", "1" → "Receita"
+          Data: new Date(form.Data).toISOString(),
+          PessoaId: parseInt(form.PessoaId),
           CategoriaId: parseInt(form.CategoriaId),
         } as AlteraTransacao);
       } else {
         await createTransacao({
-          Descricao:   form.Descricao,
-          Valor:       parseFloat(form.Valor),
-          Tipo:        form.Tipo,
-          Data:        new Date(form.Data).toISOString(),
-          PessoaId:    parseInt(form.PessoaId),
+          Descricao: form.Descricao,
+          Valor: parseFloat(form.Valor),
+          Tipo: tipoLabel[form.Tipo],
+          Data: new Date(form.Data).toISOString(),
+          PessoaId: parseInt(form.PessoaId),
           CategoriaId: parseInt(form.CategoriaId),
         } as NovaTransacao);
       }
@@ -215,9 +219,13 @@ export default function TransacoesPage() {
     setCatSaving(true);
     setCatErro("");
     try {
+      const tipoLabel: Record<string, string> = {
+        "0": "Despesa",
+        "1": "Receita",
+      };
       const nova = await createCategoria({
         Descricao: catForm.descricao,
-        Tipo:      catForm.tipo,
+        Tipo:  tipoLabel[catForm.tipo.toString()],
       } as NovaCategoria);
       await carregarCategorias();
       // Seleciona automaticamente a categoria recém criada
@@ -261,20 +269,26 @@ export default function TransacoesPage() {
 
   // ── Campos do filtro ──
   const filterFields: FilterField[] = [
-    { key: "DataInicio",    label: "Data início",  type: "date" },
-    { key: "DataFim",       label: "Data fim",     type: "date" },
-    { key: "PessoasArr",    label: "Pessoas",      type: "multiselect", placeholder: "Selecione...",
-      options: pessoas.map(p => ({ value: String(p.id), label: p.nome ?? "" })) },
-    { key: "CategoriasArr", label: "Categorias",   type: "multiselect", placeholder: "Selecione...",
-      options: categorias.map(c => ({ value: String(c.id), label: c.descricao ?? "" })) },
-    { key: "Tipo",          label: "Tipo",         type: "select", options: [
+    { key: "DataInicio", label: "Data início", type: "date" },
+    { key: "DataFim", label: "Data fim", type: "date" },
+    {
+      key: "PessoasArr", label: "Pessoas", type: "multiselect", placeholder: "Selecione...",
+      options: pessoas.map(p => ({ value: String(p.id), label: p.nome ?? "" }))
+    },
+    {
+      key: "CategoriasArr", label: "Categorias", type: "multiselect", placeholder: "Selecione...",
+      options: categorias.map(c => ({ value: String(c.id), label: c.descricao ?? "" }))
+    },
+    {
+      key: "Tipo", label: "Tipo", type: "select", options: [
         { value: "", label: "Todos" },
         { value: "0", label: "Despesa" },
         { value: "1", label: "Receita" },
-      ]},
-    { key: "ValorInicial",  label: "Valor mínimo", type: "number", placeholder: "0,00" },
-    { key: "ValorFinal",    label: "Valor máximo", type: "number", placeholder: "0,00" },
-    { key: "Descricao",     label: "Descrição",    type: "text",   placeholder: "Buscar..." },
+      ]
+    },
+    { key: "ValorInicial", label: "Valor mínimo", type: "number", placeholder: "0,00" },
+    { key: "ValorFinal", label: "Valor máximo", type: "number", placeholder: "0,00" },
+    { key: "Descricao", label: "Descrição", type: "text", placeholder: "Buscar..." },
   ];
 
   return (

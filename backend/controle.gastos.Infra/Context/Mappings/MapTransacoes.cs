@@ -1,9 +1,6 @@
 ﻿using controle.gastos.Domain.Entities;
-using controle.gastos.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace controle.gastos.Infra.Context.Mappings;
 

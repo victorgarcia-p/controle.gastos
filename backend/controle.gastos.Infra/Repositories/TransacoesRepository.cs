@@ -37,12 +37,12 @@ public class TransacoesRepository(ContextDb bd) : ITransacoesRepository
     public async Task<Transacoes> Get(int id)
     {
         /*Inclui no Get Pessoas e Categorias, para facilitar a tratativa de Dashboards no Front*/
-        var pessoa = await _bd.Transacoes.Include(x => x.Pessoa).Include(x => x.Categoria).FirstOrDefaultAsync(x => x.Id == id);
+        var transacao = await _bd.Transacoes.Include(x => x.Pessoa).Include(x => x.Categoria).FirstOrDefaultAsync(x => x.Id == id);
 
-        if (pessoa is null)
+        if (transacao is null)
             throw new ArgumentException("Transação não encontrada");
 
-        return pessoa;
+        return transacao;
     }
 
     public async Task<Transacoes> Post(Transacoes transacao)

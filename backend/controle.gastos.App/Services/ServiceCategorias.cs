@@ -18,8 +18,8 @@ public class ServiceCategorias(ICategoriasRepository categoriasRepository) : ISe
 
     public async Task<Categorias> Get(int id)
     {
-        var pessoa = await _categoriasRepository.Get(id);
-        return pessoa;
+        var categoria = await _categoriasRepository.Get(id);
+        return categoria;
     }
 
     public async Task<Categorias> Post(NovaCategoriaDTO categoriaInc)

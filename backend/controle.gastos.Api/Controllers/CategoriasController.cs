@@ -15,8 +15,8 @@ public class CategoriasController(IServiceCategorias serviceCategorias) : Contro
     {
         try
         {
-            var pessoas = await _serviceCategorias.GetAll(filtro);
-            return Ok(pessoas);
+            var categorias = await _serviceCategorias.GetAll(filtro);
+            return Ok(categorias);
         }
         catch (Exception ex)
         {
@@ -30,8 +30,8 @@ public class CategoriasController(IServiceCategorias serviceCategorias) : Contro
     {
         try
         {
-            var pessoa = await _serviceCategorias.Get(id);
-            return Ok(pessoa);
+            var categoria = await _serviceCategorias.Get(id);
+            return Ok(categoria);
         }
         catch (Exception ex)
         {
@@ -44,8 +44,8 @@ public class CategoriasController(IServiceCategorias serviceCategorias) : Contro
     {
         try
         {
-            var pessoas = await _serviceCategorias.Post(categoriaInc);
-            return Ok(pessoas);
+            var categoria = await _serviceCategorias.Post(categoriaInc);
+            return Ok(categoria);
         }
         catch (Exception ex)
         {
@@ -58,8 +58,8 @@ public class CategoriasController(IServiceCategorias serviceCategorias) : Contro
     {
         try
         {
-            var pessoas = await _serviceCategorias.Put(categoriaAlt);
-            return Ok(pessoas);
+            var categoria = await _serviceCategorias.Put(categoriaAlt);
+            return Ok(categoria);
         }
         catch (Exception ex)
         {

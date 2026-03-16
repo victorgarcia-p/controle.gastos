@@ -42,11 +42,11 @@ public class TransacoesController(IServiceTransacoes serviceTransacoes) : Contro
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(NovaTransacaoDTO pessoaInc)
+    public async Task<IActionResult> Post(NovaTransacaoDTO transacaoInc)
     {
         try
         {
-            var transacao = await _serviceTransacoes.Post(pessoaInc);
+            var transacao = await _serviceTransacoes.Post(transacaoInc);
             return Ok(transacao);
         }
         catch (Exception ex)
@@ -57,11 +57,11 @@ public class TransacoesController(IServiceTransacoes serviceTransacoes) : Contro
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put(AlteraTransacaoDTO pessoaAlt)
+    public async Task<IActionResult> Put(AlteraTransacaoDTO transacaoAlt)
     {
         try
         {
-            var transacao = await _serviceTransacoes.Put(pessoaAlt);
+            var transacao = await _serviceTransacoes.Put(transacaoAlt);
             return Ok(transacao);
         }
         catch (Exception ex)

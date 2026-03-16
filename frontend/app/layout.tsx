@@ -15,8 +15,6 @@ import {
 import "./globals.css";
 import { getTransacoes } from "../services/transacoes.service";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface NavItem  { href: string; label: string; icon: React.ElementType; badge?: number; }
 interface NavGroup { section: string; items: NavItem[]; }
 
@@ -29,8 +27,6 @@ interface Transacao {
   pessoaId: number;
   categoriaId: number;
 }
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const W_FULL = 150;
 
@@ -48,8 +44,6 @@ function getPeriodoAtual() {
     DataFim:    `${ano}-${mes}-${ultimo}`,
   };
 }
-
-// ─── Sidebar ──────────────────────────────────────────────────────────────────
 
 function Sidebar() {
   const pathname                        = usePathname();
@@ -91,8 +85,8 @@ function Sidebar() {
     {
       section: "Gestão",
       items: [
-        { href: "/pessoas",    label: "Pessoas",    icon: Users },
         { href: "/transacoes", label: "Transações", icon: ArrowLeftRight, badge: total },
+        { href: "/pessoas",    label: "Pessoas",    icon: Users },
         { href: "/categorias", label: "Categorias", icon: BookMarked },
       ],
     },
@@ -205,6 +199,7 @@ function Sidebar() {
   );
 }
 
+// Area de conteúdo principal onde as páginas serão renderizadas
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
